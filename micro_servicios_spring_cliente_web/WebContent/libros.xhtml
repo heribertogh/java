@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+
+	<h2>Listado de lisbro para: <h:outputText value="#{LoginBean.usuario}" /> a mi pagina JSF</h2>
+	<br/><br/>
+
+	<h:dataTable border="1" var = "lb" value="#{LibrosBean.libros}">
+		<h:column> <f:facet name="header">ISBN</f:facet> <h:outputText value="#{lb.isbn}" />   </h:column>
+		<h:column> <f:facet name="header">Autor</f:facet> <h:outputText value="#{lb.autor}" />  </h:column>
+		<h:column> <f:facet name="header">Titulo</f:facet> <h:outputText value="#{lb.titulo}" /> </h:column>
+		<h:column> <f:facet name="header">Precio</f:facet> <h:outputText value="#{lb.precio}" /> </h:column>
+		<h:column> <f:facet name="header">Paginas</f:facet> <h:outputText value="#{lb.paginas}" /></h:column>
+	</h:dataTable>
+	<br/><br/>
+
+	<h:link value="Volver" outcome="inicio"/>
+	
+</body> 
+</html>
