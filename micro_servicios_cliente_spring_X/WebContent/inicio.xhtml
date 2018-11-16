@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+<center>
+	<h2>DNI: <h:outputText value="#{UsuarioBean.dni}" /> Nombre: <h:outputText value="#{UsuarioBean.nombre}" /> </h2>
+	<br/><br/>
+
+	<h2>Vuelos:</h2>
+	<h:dataTable border="1" var = "vl" value="#{UsuarioBean.vuelos}">
+		<h:column> <f:facet name="header">Company:</f:facet> <h:outputText value="#{vl.company}" />   </h:column>
+		<h:column> <f:facet name="header">Vuelo:</f:facet> <h:outputText value="#{vl.idVuelo}" />  </h:column>
+		<h:column> <f:facet name="header">Fecha:</f:facet> <h:outputText value="#{vl.fecha}" /> </h:column>
+		<h:column> <f:facet name="header">Precio:</f:facet> <h:outputText value="#{vl.precio}" /> </h:column>
+		<h:column> <f:facet name="header">Plazas:</f:facet> <h:outputText value="#{vl.plazas}" /> </h:column>
+	</h:dataTable>
+	<br/><br/>
+
+	<h2>Hoteles disponibles:</h2>
+	<h:dataTable border="1" var = "ht" value="#{UsuarioBean.hoteles}">
+		<h:column> <f:facet name="header">Categoria:</f:facet> <h:outputText value="#{ht.categoria}" />   </h:column>
+		<h:column> <f:facet name="header">Nombre:</f:facet> <h:outputText value="#{ht.nombre}" />  </h:column>
+		<h:column> <f:facet name="header">Precio:</f:facet> <h:outputText value="#{ht.precio}" /> </h:column>
+	</h:dataTable>
+	<br/><br/>
+
+</center>	
+</body> 
+</html>
