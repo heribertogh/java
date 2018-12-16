@@ -4,6 +4,6 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/19_servicio_agenda_spring_rest/build/classes"/>
-        <property name="context-root" value="rest_spring_servicio_agenda"/>
+        <property name="context-root" value="19_servicio_agenda_spring_rest"/>
     </wb-module>
 </project-modules>
