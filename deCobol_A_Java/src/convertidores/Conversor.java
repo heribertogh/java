@@ -1,16 +1,13 @@
 package convertidores;
 
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.Path;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -38,11 +35,9 @@ public class Conversor {
 	
 	List<String> pCobol;	
 	HashMap<String, Tabla> mapTablas;
-	Path pathJava;
 	
-	public Conversor(String nombreArchivoCobol, String nombreArchivoJava) {
+	public Conversor(String nombreArchivoCobol) {
 		try {
-			pathJava = Paths.get(nombreArchivoJava);
 			Path pathCobol = Paths.get(nombreArchivoCobol);
 			byte[] bCobol = Files.readAllBytes(pathCobol);									// es para convertir los caracteres del archivo que viene con un caracter por byte  
 			String xx = new String(bCobol);
@@ -60,17 +55,10 @@ public class Conversor {
 	}
 	
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Que programa Cobol quieres convertir a Java?");
-		//String nombreArchivoCobol = sc.nextLine();
-		String nombreArchivoCobol = "c:\\cobol\\clientes.cbl";
-		System.out.println("Como quieres que se llame el programa en Java?");
-		//String nombreArchivoJava = sc.nextLine();
-		String nombreArchivoJava = "c:\\cobol\\salida.java";
-		System.out.println("empezamos la conversión de:" + nombreArchivoCobol + " en:" + nombreArchivoJava);
-		sc.close();
+		String nombreArchivoCobol = "c:\\cobol\\gestion.cbl";
+		System.out.println("empezamos la conversión de:" + nombreArchivoCobol); 
 
-		Conversor cv = new Conversor(nombreArchivoCobol, nombreArchivoJava);
+		Conversor cv = new Conversor(nombreArchivoCobol);
 		cv.chequeoLineasCobol();
 		cv.generarJava();
 	}
@@ -133,6 +121,7 @@ public class Conversor {
 
 				String primaryKey = linea.substring(inicio);
 				fin = primaryKey.indexOf(' ');
+				if (fin == -1)  fin = primaryKey.indexOf('.');
 				if (fin == -1)	fin = primaryKey.length(); 
 				tabla.primaryKey = primaryKey.substring(0, fin).replace("-", "_");
 			}
@@ -223,31 +212,6 @@ public class Conversor {
 	}
 	
 	private void generarJava() {
-/*
- * 	class Tabla {
-		private String nombreSelect;
-		private String nombreExterno;
-		private String organizacion;
-		private String primaryKey;
-		private HashMap<String, Key> mapKeys;
-		private String nombreRegistro;
-		private HashMap<String, Campo> mapCampos;
-	}
-	class Key {
-		private String nombreKey;
-		private boolean conDuplicados;
-	}
-	class Campo {
-		private String nombreCampo;
-		private String tipoCampo;
-		private int    longitudCampo;
-	}
-	
-	Path pathJava;
-	List<String> pCobol;	
-	HashMap<String, Tabla> mapTablas;
-		
- */
 		Collection<Tabla> ct = mapTablas.values();
 		for (Tabla tb : ct) {
 			ArrayList<String> pJava = new ArrayList<>();
@@ -291,9 +255,10 @@ public class Conversor {
 			}
 			pJava.add("}");
 			
-			Path pathJava = Paths.get("c:\\cobol\\" + tb.nombreSelect + ".java");
+			Path pathJava = Paths.get("c:\\cobol\\" + tb.nombreSelect + ".java");		// archivo de salida, CAMBIAR
 			try {
-				Files.write(pathJava, pJava, StandardOpenOption.WRITE);
+				Files.write(pathJava, pJava, StandardOpenOption.CREATE_NEW);	// opcion de salida, lor archivos no tienen que existir
+																				// si da error borrar los archivos que se generaron anteriormente   		
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
